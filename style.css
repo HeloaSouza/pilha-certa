@@ -14,7 +14,7 @@ body {
   background: #f5f5f5;
   color: #fff;
   overflow: hidden;
-  box-shadow: none
+  box-shadow: none !important
 }
 
 header {
@@ -453,5 +453,6 @@ header {
     font-size: 16px;
   }
 }
+
 
 
