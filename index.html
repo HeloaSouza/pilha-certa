@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pilha Certa</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <img
+        src="data:image/png;base64,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"
+        alt="Logo"
+        class="header-logo"
+      />
+
+      <div class="header-controls">
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Buscar ponto..."
+          />
+          <button class="search-button" onclick="searchLocations()">🔍</button>
+        </div>
+
+        <button class="info-button" onclick="toggleInfo()">i</button>
+      </div>
+    </header>
+    <div class="info-modal" id="infoModal">
+      <div class="info-content">
+        <button class="close-button" onclick="toggleInfo()">×</button>
+        <h2>ℹ️ Sobre o Projeto</h2>
+        <p><strong>Descarte consciente de baterias em Fortaleza!</strong></p>
+        <p>
+          Nosso objetivo é facilitar o descarte correto de pilhas, baterias e
+          lixos eletroeletrônicos na capital do Ceará.
+        </p>
+        <p>Feito com carinho pela equipe 💚</p>
+
+        <h3 style="color: #2e7d32; font-size: 16px; margin-top: 20px">
+          Como usar:
+        </h3>
+        <ul>
+          <li>
+            📍 Permita acesso à localização para ver os pontos mais próximos
+          </li>
+          <li>🗺️ Clique nos marcadores verdes no mapa para ver detalhes</li>
+          <li>
+            📋 Use a lista lateral para navegar pelos pontos ordenados por
+            distância
+          </li>
+          <li>🎯 Clique em qualquer ponto da lista para focar no mapa</li>
+        </ul>
+
+        <h3 style="color: #2e7d32; font-size: 16px; margin-top: 20px">
+          Atente-se
+        </h3>
+        ⚠️ Resíduos de Equipamento Eletroeletrônico (REEE) ou lixo eletrônicos
+        se referem a mesma coisa: produtos elétricos e eletrônicos quebrados,
+        danificados ou que por algum motivo devem ser descartados.
+        <h4 style="color: #2e7d32; font-size: 16px; margin-top: 20px">
+          Estando divididos em:
+        </h4>
+
+        <ul>
+          <li>
+            Grandes equipamentos: geladeiras, freezers, máquinas de lavar,
+            fogões, ar condicionados, microondas, grandes TVs, etc.
+          </li>
+          <li>
+            Pequenos equipamentos e eletroportáteis: torradeiras, batedeiras,
+            aspiradores de pó, ventiladores, mixers, secadores de cabelo,
+            ferramentas elétricas, calculadoras, câmeras digitais, rádios, etc.
+          </li>
+          <li>
+            Equipamentos de informática e telefonia: computadores, tablets,
+            notebooks, celulares, impressoras, monitores e outros.
+          </li>
+          <li>
+            Pilhas e baterias portáteis: pilhas modelos AA, AAA, C/D,
+            recarregáveis, baterias portáteis de 9 V, etc.
+          </li>
+        </ul>
+        <h3 style="color: #2e7d32; font-size: 16px; margin-top: 20px">
+          Por que descartar corretamente?
+        </h3>
+        <ul>
+          <li>♻️ Baterias contêm metais pesados tóxicos</li>
+          <li>🌍 Protege o meio ambiente e a saúde pública</li>
+          <li>🔋 Materiais podem ser reciclados e reutilizados</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="sidebar">
+        <h2>Pontos Próximos de Você</h2>
+        <div id="locationList" class="loading">Calculando distâncias...</div>
+      </div>
+
+      <div id="map"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+      const map = L.map("map").setView([-3.7319, -38.5267], 12);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      const greenIcon = L.icon({
+        iconUrl:
+          "data:image/svg+xml;base64," +
+          btoa(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
+          <path fill="#2e7d32" stroke="#1b5e20" stroke-width="2" d="M16,1 C9.4,1 4,6.4 4,13 C4,23 16,39 16,39 S28,23 28,13 C28,6.4 22.6,1 16,1 Z"/>
+          <circle cx="16" cy="13" r="5" fill="#fff"/>
+        </svg>
+      `),
+        iconSize: [32, 40],
+        iconAnchor: [16, 40],
+        popupAnchor: [0, -40],
+      });
+
+      const locations = [
+        {
+          lat: -3.7194667222441087,
+          lng: -38.51584572293832,
+          name: "Centro de Recondicionamento Tecnológico",
+          address: "R. dos Tabajaras, 440 - Praia de Iracema",
+          description: "Recebe: lixo eletroeletrônico",
+        },
+        {
+          lat: -3.782378486883491,
+          lng: -38.51465073049452,
+          name: "Atacadão - Fortaleza BR 116",
+          address: "Av. Alberto Craveiro, 507 - Dias Macedo",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.8095173833310003,
+          lng: -38.60666677652538,
+          name: "Atacadão Fortaleza - Osório",
+          address: "Av. Gen. Osório de Paiva, 6297 - Canindezinho",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.716975358732926,
+          lng: -38.554713094535195,
+          name: "Atacadão - Fortaleza Francisco Sá",
+          address: "Av. Francisco Sá, 3175 - Carlito Pamplona",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.780352216915126,
+          lng: -38.54063689941373,
+          name: "Atacadão - Fortaleza Aeroporto",
+          address: "Av. Senador Carlos Jereissati, 3001 - Serrinha",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.803312420049213,
+          lng: -38.57354841520304,
+          name: "Atacadão - Maraponga",
+          address: "Av. Godofredo Maciel, 3190 - Maraponga",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.7910684890242052,
+          lng: -38.50756521329946,
+          name: "Assaí Atacadista BR-116",
+          address: "Rodovia, BR-116, 501 - Cidade dos Funcionários",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.731085641379181,
+          lng: -38.5411632574762,
+          name: "Assaí Atacadista",
+          address: "Av. Bezerra de Menezes, 571 - Farias Brito",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.727809816487493,
+          lng: -38.567957128643386,
+          name: "Assaí Atacadista",
+          address: "Av. Srg. Hermínio Sampaio, 2965 - Pres. Kennedy",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.7780811685930624,
+          lng: -38.56453102864302,
+          name: "Assaí Atacadista",
+          address: "Av. Godofredo Maciel, 86 - Parangaba",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.800355485678877,
+          lng: -38.47898608446335,
+          name: "Assaí Atacadista",
+          address:
+            "Edson Queiroz - Av. Washington Soares, 5.657 - José de Alencar",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.7330689888942867,
+          lng: -38.49861587379479,
+          name: "NotebookCE Assistência Premium",
+          address:
+            "Avenida Dom Luís, 300 Shopping Avenida - Loja Externa - Aldeota",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.7370450685994925,
+          lng: -38.496953484498235,
+          name: "Casas Bahia",
+          address: "Av. Santos Dumont, 3130 - Shopping Center Um - Aldeota",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.724594592606541,
+          lng: -38.530389800048724,
+          name: "Casas Bahia Fortaleza 1",
+          address: "Av. Bezerra de Menezes, 571 - Farias Brito",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.729429255607304,
+          lng: -38.53078078869878,
+          name: "Casas Bahia Fortaleza 2",
+          address: "R. Gen. Sampaio, 1267 - Centro",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.830259184355061,
+          lng: -38.49418360498244,
+          name: "Casas Bahia Fortaleza",
+          address: "R. Padre Pedro de Alencar, 316 - 324 - Messejana",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.731085641379181,
+          lng: -38.5411632574762,
+          name: "Casas Bahia Monrtese",
+          address: "Av. Professor Gomes de Matos, 827 - Bom Futuro",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.7275574497122075,
+          lng: -38.53001723902561,
+          name: "Casas Bahia Senador Pompeu",
+          address: "R. Sen. Pompeu, 1022 - Centro",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.765312270968215,
+          lng: -38.574842860874384,
+          name: "Casas Bahia North Shopping Jóquei",
+          address: "Av. Lineu Machado, 419 - Andar 2 - Jóquei Clube",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.726305856338565,
+          lng: -38.52734615933095,
+          name: "Casas Bahia Praça do Ferreira",
+          address: "Tv. Pará, 20 - Centro",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.755121954157769,
+          lng: -38.48930452974906,
+          name: "Casas Bahia Shopping Iguatemi",
+          address: "Av. Washington Soares, 85 - Edson Queiroz",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.7755886089165998,
+          lng: -38.56153135474969,
+          name: "Casas Bahia Shopping Parangaba",
+          address: "Rua Germano Franck, 300 - Parangaba",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhass",
+        },
+        {
+          lat: -3.740966643131094,
+          lng: -38.47296527609987,
+          name: "Casas Bahia Shopping Rio Mar Fortaleza",
+          address: "R. Des. Lauro Nogueira, 1355 - Andar L1 - Papicu",
+          description:
+            "Recebe: lixo eletroeletrônico de pequeno porte e pilhas",
+        },
+        {
+          lat: -3.751174514921734,
+          lng: -38.50140541303353,
+          name: "Anexo III da Assembleia Legislativa do Estado do Ceará",
+          address: "Av. Pontes Vieira, no 2348 - Dionísio Torres",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.757147998019777,
+          lng: -38.48801428816667,
+          name: "Companhia Brasileira de Distribuição",
+          address: "Av. Washington Soares, 85 - Edson Queiroz",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.832270899241085,
+          lng: -38.49018444583774,
+          name: "Make Shop Atacarejo",
+          address: "R. Manuel Castelo Branco, 580 - Messejana",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.741285583607918,
+          lng: -38.47252825592213,
+          name: "Shopping RioMar Fortaleza",
+          address:
+            "R. Des. Lauro Nogueira, 1500 - Papicu, Fortaleza - CE, 60175-055",
+          description:
+            "Recebe: pilhas, baterias, eletrônicos e eletroportáteis",
+        },
+        {
+          lat: -3.725911523849123,
+          lng: -38.56696943049496,
+          name: "Shopping RioMar Kennedy",
+          address: "Av. Srg. Hermínio Sampaio, 3100 - Pres. Kennedy",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.731085641379181,
+          lng: -38.5411632574762,
+          name: "Assaí Atacadista",
+          address: "Av. Bezerra de Menezes, 571 - Farias Brito",
+          description: "Recebe: pilhas",
+        },
+        {
+          lat: -3.731085641379181,
+          lng: -38.5411632574762,
+          name: "Assaí Atacadista",
+          address: "Av. Bezerra de Menezes, 571 - Farias Brito",
+          description: "Recebe: pilhas",
+        },
+      ];
+
+      const markers = {};
+
+      locations.forEach((loc, idx) => {
+        const marker = L.marker([loc.lat, loc.lng], { icon: greenIcon }).addTo(
+          map
+        ).bindPopup(`
+          <div class="popup-title">${loc.name}</div>
+          <div class="popup-address">${loc.address}</div>
+          <div class="popup-description">${loc.description} </div>
+        `);
+
+        markers[idx] = marker;
+        loc.id = idx;
+      });
+
+      function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = ((lat2 - lat1) * Math.PI) / 180;
+        const dLon = ((lon2 - lon1) * Math.PI) / 180;
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos((lat1 * Math.PI) / 180) *
+            Math.cos((lat2 * Math.PI) / 180) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+      }
+
+      function updateLocationList(userLat, userLng) {
+        const locationsWithDistance = locations.map((loc) => ({
+          ...loc,
+          distance: calculateDistance(userLat, userLng, loc.lat, loc.lng),
+        }));
+
+        locationsWithDistance.sort((a, b) => a.distance - b.distance);
+
+        const listHTML = locationsWithDistance
+          .map(
+            (loc) => `
+        <div class="location-item" id="loc-${loc.id}" onclick="focusLocation(${
+              loc.id
+            })">
+          <div class="location-name">${loc.name}</div>
+          <div class="location-address">${loc.address}</div>
+          <div class="location-distance">${loc.distance.toFixed(2)} km</div>
+        </div>
+      `
+          )
+          .join("");
+
+        document.getElementById("locationList").innerHTML = listHTML;
+      }
+
+      window.focusLocation = function (id) {
+        document.querySelectorAll(".location-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        document.getElementById(`loc-${id}`).classList.add("active");
+
+        const loc = locations[id];
+        map.setView([loc.lat, loc.lng], 15);
+        markers[id].openPopup();
+      };
+
+      window.toggleInfo = function () {
+        const modal = document.getElementById("infoModal");
+        modal.classList.toggle("active");
+      };
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("infoModal");
+        if (event.target === modal) {
+          modal.classList.remove("active");
+        }
+      };
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+
+            L.marker([userLat, userLng], {
+              icon: L.divIcon({
+                className: "user-marker",
+                iconSize: [20, 20],
+              }),
+            })
+              .addTo(map)
+              .bindPopup("📍 Você está aqui");
+
+            map.setView([userLat, userLng], 13);
+            updateLocationList(userLat, userLng);
+          },
+          (error) => {
+            updateLocationList(-3.7319, -38.5267);
+          }
+        );
+      } else {
+        updateLocationList(-3.7319, -38.5267);
+      }
+      window.toggleSidebar = function () {
+        const sidebar = document.querySelector(".sidebar");
+        const button = document.querySelector(".sidebar-toggle");
+
+        sidebar.classList.toggle("open");
+
+        if (sidebar.classList.contains("open")) {
+          button.textContent = "✕ Fechar Lista";
+        } else {
+          button.textContent = "📍 Ver Pontos Próximos";
+        }
+      };
+      window.searchLocations = function () {
+        const query = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const filtered = locations.filter((loc) =>
+          loc.name.toLowerCase().includes(query)
+        );
+
+        const listHTML = filtered
+          .map(
+            (loc) => `
+      <div class="location-item" id="loc-${loc.id}" onclick="focusLocation(${loc.id})">
+        <div class="location-name">${loc.name}</div>
+        <div class="location-address">${loc.address}</div>
+        <div class="location-distance">🔍 Resultado</div>
+      </div>
+    `
+          )
+          .join("");
+
+        document.getElementById("locationList").innerHTML =
+          listHTML || "<div class='loading'>Nenhum ponto encontrado.</div>";
+      };
+    </script>
+  </body>
+</html>

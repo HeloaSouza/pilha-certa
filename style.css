@@ -1,0 +1,454 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f5f5;
+  color: #fff;
+  overflow: hidden;
+}
+
+header {
+  background: rgba(46, 125, 50, 0.95);
+  padding: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* não altera a cor/sombra/visual do header */
+}
+
+/* Logo: centralizada verticalmente e com max-height relativa ao header.
+   Isso evita que a imagem ultrapasse o header ou fique 'achatada'. */
+.header-logo {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-height: calc(
+    100% - 12px
+  ); /* sempre menor que o header para não extravasar */
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  z-index: 10;
+}
+
+/* Header controls seguem iguais */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  padding: 10px 40px 10px 15px;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  background: #2e7d32;
+  border: none;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background: #1b5e20;
+  transform: scale(1.1);
+}
+
+.info-button {
+  background: rgba(46, 125, 50, 0.95);
+  border: 4px solid #fff;
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.info-button:hover {
+  background: #fff;
+  color: #2e7d32;
+  transform: scale(1.1);
+}
+
+.info-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.info-modal.active {
+  display: flex;
+}
+
+.info-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 90%;
+  color: #333;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 20px;
+}
+
+.info-content h2 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.info-content p {
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.info-content ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.info-content li {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e0e0e0;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 110px);
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 350px;
+  max-width: 350px;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.sidebar h2 {
+  color: #2e7d32;
+  font-size: 18px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-item {
+  background: #f5f5f5;
+  border-left: 4px solid #66bb6a;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.location-item:hover {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  transform: translateX(5px);
+}
+
+.location-item.active {
+  background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+}
+
+.location-item.active .location-name,
+.location-item.active .location-address,
+.location-item.active .location-distance {
+  color: #ffffff;
+}
+
+.location-name {
+  font-weight: bold;
+  color: #2e7d32;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.location-address {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.location-distance {
+  font-size: 13px;
+  color: #43a047;
+  font-weight: bold;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #2e7d32;
+}
+
+/* Mapa: removendo borda/sombra inferior e qualquer contorno visível */
+#map {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  border: none !important;
+  box-shadow: none !important;
+  display: block;
+}
+
+/* Remove border e sombra que o Leaflet possa aplicar por padrão */
+.leaflet-container {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent;
+}
+
+/* Remove sombras de controles que possam criar sensação de 'borda' */
+.leaflet-control-container,
+.leaflet-control-zoom,
+.leaflet-control-attribution {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Popups */
+.leaflet-popup-content-wrapper {
+  background: #fff;
+  border-radius: 8px;
+}
+
+.leaflet-popup-content {
+  margin: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.popup-title {
+  color: #2e7d32;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.popup-address,
+.popup-description {
+  color: #555;
+  font-size: 12px;
+}
+
+.user-marker {
+  background: #2196f3;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* RESPONSIVIDADE MOBILE */
+/* Uso de max-height + height:auto para preservar proporção */
+@media screen and (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+
+  header {
+    padding: 12px 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .header-logo {
+    /* centralizada verticalmente, com limite proporcional ao header */
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: calc(100% - 8px);
+    height: auto;
+    width: auto;
+  }
+
+  .header-controls {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .search-input {
+    width: 150px;
+    font-size: 13px;
+    padding: 8px 35px 8px 12px;
+  }
+
+  .search-input:focus {
+    width: 180px;
+  }
+
+  .search-button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .info-button {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    border: 3px solid #fff;
+  }
+
+  .info-content {
+    padding: 20px;
+    margin: 10px;
+    max-height: 85vh;
+  }
+
+  .info-content h2 {
+    font-size: 20px;
+    padding-right: 30px;
+  }
+
+  .container {
+    flex-direction: column;
+    height: calc(100vh - 92px);
+  }
+
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    height: 40vh;
+    max-height: 40vh;
+    padding: 15px;
+    order: 2;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .location-item {
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  #map {
+    order: 1;
+    height: 60vh;
+    flex-grow: 1;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header-logo {
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 56px; /* evita overflow em telas muito pequenas */
+    height: auto;
+    width: auto;
+    position: absolute;
+  }
+
+  .search-input {
+    width: 120px;
+    font-size: 12px;
+  }
+
+  .search-input:focus {
+    width: 150px;
+  }
+
+  .info-button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
